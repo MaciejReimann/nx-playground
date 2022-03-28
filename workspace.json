@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "playground-react": "apps/playground-react",
+    "playground-react-e2e": "apps/playground-react-e2e"
+  }
+}

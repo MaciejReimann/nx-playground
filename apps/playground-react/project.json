@@ -1,0 +1,73 @@
+{
+  "root": "apps/playground-react",
+  "sourceRoot": "apps/playground-react/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/playground-react",
+        "index": "apps/playground-react/src/index.html",
+        "baseHref": "/",
+        "main": "apps/playground-react/src/main.tsx",
+        "polyfills": "apps/playground-react/src/polyfills.ts",
+        "tsConfig": "apps/playground-react/tsconfig.app.json",
+        "assets": [
+          "apps/playground-react/src/favicon.ico",
+          "apps/playground-react/src/assets"
+        ],
+        "styles": [],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/playground-react/src/environments/environment.ts",
+              "with": "apps/playground-react/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "playground-react:build",
+        "hmr": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "playground-react:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/playground-react/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/playground-react"],
+      "options": {
+        "jestConfig": "apps/playground-react/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

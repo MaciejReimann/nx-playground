@@ -1,0 +1,28 @@
+{
+  "root": "apps/playground-react-e2e",
+  "sourceRoot": "apps/playground-react-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/playground-react-e2e/cypress.json",
+        "devServerTarget": "playground-react:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "playground-react:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/playground-react-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["playground-react"]
+}
