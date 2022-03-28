@@ -1,6 +1,8 @@
 {
   "version": 2,
   "projects": {
+    "playground-next": "apps/playground-next",
+    "playground-next-e2e": "apps/playground-next-e2e",
     "playground-react": "apps/playground-react",
     "playground-react-e2e": "apps/playground-react-e2e"
   }
