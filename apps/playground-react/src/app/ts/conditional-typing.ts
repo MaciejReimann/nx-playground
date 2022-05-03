@@ -48,3 +48,17 @@ type Letters = {
 
 type LetterValues<T> = Letters[T extends number ? 'c' : never];
 type GetA = LetterValues<number>;
+
+// ---
+type Output<T extends number | string> = T extends number
+  ? { id: number }
+  : { name: string };
+function processArg<T extends number | string>(arg: T): Output<T> {
+  //
+}
+
+const R1 = processArg(132);
+const R2 = processArg('asdf');
+
+type Flip<T> = T extends [infer A, infer B] ? [B, A] : never;
+type Flipped = Flip<['first', 'second']>;

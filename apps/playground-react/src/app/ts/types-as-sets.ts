@@ -125,3 +125,12 @@ type NonNullableArray<T> = T extends null | undefined | (null | undefined)[]
   ? never
   : T;
 type NN = NonNullableArray<string | undefined | null[] | (undefined | null)[]>;
+
+// type is a set of possible values
+// & and | apply to the sets itself, not to the elements contained inside of that sets
+
+type R1 = number & boolean; // never
+type R2 = { a: number } & { b: boolean };
+
+// extends => isSubsetOf
+// extends + generic => constraining potentially infinite set to its subset
