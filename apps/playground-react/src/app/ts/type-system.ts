@@ -104,3 +104,9 @@ const add = (a: string, b: string) => a + b;
 //@ts-expect-error - namespace mismatch
 type Result = ReturnType<add>; // taking name from variable namespace into type namespace
 type CorrectResult = ReturnType<typeof add>;
+
+// ---
+// Questions:
+// What is the Object type? => objects and primitives (autoboxing)
+// What is the Function type? => any function (regardless parameters or return types)
+//

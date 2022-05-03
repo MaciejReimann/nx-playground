@@ -5,7 +5,8 @@
 // Empty set Ø => container of NOTHING
 type EmptySet = never;
 // Universal set U => delineation of the boundary of discussion
-type Everything = unknown;
+type Everything1 = unknown;
+type Everything2 = any;
 
 // ---
 // Set theory offers a mental modelfor reasoning about types in TS
@@ -95,9 +96,12 @@ type M<T> = T extends OtherType ? T : never;
 // when we pass a union type into a checked generic
 // - Check if each constituent of the union is a (proper) subset
 
+// (A v B) ^ C => A ^ C v B ^ C
+// (string v number) ^ array => array<string> | array<number>
+
 // when the check is distributed over each constituent of the union
 // it's a distributive conditional type (a TS's default resolution strategy):
-type ToArrayDistribitive<T> = T extends unknown ? T[] : never;
+type ToArrayDistribitive<T> = T extends unknown ? T[] : never; // T extends unknown is TS's way to say: DO IT!
 
 // if I pass string, I'll get string[]
 // if I pass number, I'll get number[]
@@ -108,7 +112,8 @@ type DistExplicit =
   | (number extends unknown ? number[] : never);
 
 // non-distributive conditional type:
-type ToArrayNonDistributive<T> = [T] extends [T] ? T[] : never; // disabling distributivity requires wrapping each of the two types in the condition with square brackets
+type ToArrayNonDistributive<T> = [T] extends [T] ? T[] : never;
+// disabling distributivity requires wrapping each of the two types in the condition with square brackets
 
 type NonDist = ToArrayNonDistributive<string | number>; // (string | number)[]
 
@@ -134,3 +139,9 @@ type R2 = { a: number } & { b: boolean };
 
 // extends => isSubsetOf
 // extends + generic => constraining potentially infinite set to its subset
+
+// ---
+// What are the resulting types?
+// string | "ABC" => string
+// string & "ABC" => "ABC"
+//
