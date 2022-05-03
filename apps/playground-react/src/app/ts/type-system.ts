@@ -1,3 +1,4 @@
+export {};
 // ---
 // Static vs. dynamic / Weak vs. Strong
 
@@ -17,8 +18,6 @@ a = '123'; // ok
 // TypeError - runtime
 // SyntaxError - code parsing
 
-// ---
-// Polymorphism
 // actual types vs apparent types (what the compiler sees)
 
 interface Human {
@@ -33,10 +32,14 @@ class TaxiDriver implements Human {
   drive = () => {};
 }
 
-const john: Human = new TaxiDriver('John');
+let john: Human = new TaxiDriver('John');
 john.breathe(); // ok
 //@ts-expect-error
 john.drive(); // not-ok, because no drive method on interface Human
+
+// ---
+// Polymorphism
+//
 
 // Why do we annotate a more generic, apparent type?
 
@@ -47,15 +50,19 @@ class Developer implements Human {
   code = () => {};
 }
 
+john = new Developer('john');
+
 const ann = new Developer('Ann');
 ann.breathe();
-ann.code();
+ann.code(); // no problem, because no type annotation?
 
+// ---
 // soliD - Dependency Inversion principle
 // one module implements an interface and the other requires an interface,
-// whereas the modules are not couples b/w themseves
+// whereas the modules are not coupled b/w themseves
 
 // where the compilator doesn't need to know the implementation details of a given class,
+// (see john.drive(); example)
 // use polymorphism to make the code less brittle
 
 // nominal typing - equality of interfaces of their names
@@ -87,7 +94,13 @@ dog = thing;
 // --- inference / annotation / assertions
 const numb = 123; // inference -> tell me the type
 const num: number = 123; // annotation -> see if we agree on the type (type safe)
-const number = '123' as unknown as number; // assertion -> I know better
+const number = '123' as unknown as number; // assertion -> I know better,
+// btw avoid using "type casting":
+// It's called a "type assertion" because you're asserting that the value already has
+// the type you say it does. You're not "casting" it into that type.
+// https://effectivetypescript.com/2021/02/03/pet-peeves/
 
 const add = (a: string, b: string) => a + b;
-type Result = ReturnType<typeof add>; // string
+//@ts-expect-error - namespace mismatch
+type Result = ReturnType<add>; // taking name from variable namespace into type namespace
+type CorrectResult = ReturnType<typeof add>;
